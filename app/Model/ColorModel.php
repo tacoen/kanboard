@@ -216,16 +216,19 @@ class ColorModel extends Base
     public function getCss()
     {
         $buffer = '';
-
+		$buffer2 = '';
         foreach ($this->default_colors as $color => $values) {
-            $buffer .= '.task-board.color-'.$color.', .task-summary-container.color-'.$color.', .color-picker-square.color-'.$color.', .task-board-category.color-'.$color.', .table-list-category.color-'.$color.', .task-tag.color-'.$color.' {';
+            $buffer .= "\n".'.color-'.$color.',';
+            $buffer .= "\n".'.task-board.color-'.$color.', .task-summary-container.color-'.$color.', .color-picker-square.color-'.$color.', .task-board-category.color-'.$color.', .table-list-category.color-'.$color.', .task-tag.color-'.$color.' {';
             $buffer .= 'background-color: '.$values['background'].';';
-            $buffer .= 'border-color: '.$values['border'];
+            $buffer .= 'border-color: '.$values['border'].';';
+			$buffer .= "\n".'--bg:'.$values['background'].';';
+            $buffer .= "\n".'--bo:'.$values['border'].';';			
             $buffer .= '}';
-            $buffer .= 'td.color-'.$color.' { background-color: '.$values['background'].'}';
-            $buffer .= '.table-list-row.color-'.$color.' {border-left: 5px solid '.$values['border'].'}';
+			$buffer .= "\n".'td.color-'.$color.' { background-color: '.$values['background'].'}';
+            $buffer .= "\n".'.table-list-row.color-'.$color.' {border-left: 5px solid '.$values['border'].'}';
         }
-
-        return $buffer;
+		$root_color = "\n:root {\n".$buffer2."\n}";
+        return $buffer . $root_color;
     }
 }
